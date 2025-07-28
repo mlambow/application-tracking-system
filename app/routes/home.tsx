@@ -25,11 +25,6 @@ export default function Home() {
   return (
     <main className="bg-[url('/images/bg-main.svg')] bg-cover">
       <Navbar />
-
-        {/* <div className="absolute top-0 left-2 w-82 h-82 bg-purple-300 rounded-full mix-blend-multiply filter blur-2xl opacity-60 animate-blob"></div>
-        <div className="absolute top-0 right-1 w-82 h-82 bg-yellow-300 rounded-full mix-blend-multiply filter blur-2xl opacity-60 animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-20 w-82 h-82 bg-pink-300 rounded-full mix-blend-multiply filter blur-2xl opacity-60 animate-blob animation-delay-4000"></div>
-        <div className="absolute -bottom-8 right-20 w-82 h-82 bg-violet-300 rounded-full mix-blend-multiply filter blur-2xl opacity-60 animate-blob animation-delay-4000"></div> */}
       <section className="main-section">
         <div className="page-heading py-12">
           <h1>Track Your Applications & Resume Ratings</h1>

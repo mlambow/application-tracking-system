@@ -19,7 +19,14 @@ const upload = () => {
     }
 
     const handleFileUpload = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const form = event.currentTarget.closest('form')
+        if(!form) return
+        const formData = new FormData(form);
 
+        const companyName = formData.get('company-name') as string;
+        const jobTitle = formData.get('job-title') as string;
+        const jobDescription = formData.get('job-description') as string;
     }
 
   return (
