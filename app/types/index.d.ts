@@ -56,3 +56,10 @@ interface Feedback {
     }[];
   };
 }
+
+interface handleAnalyzeResume {
+  companyName: string;
+  jobTitle: string;
+  jobDescription: string;
+  file: File;
+}
