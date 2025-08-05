@@ -7,7 +7,6 @@ import { useNavigate } from "react-router";
 import { convertPdfToImage } from "~/lib/pdf2img";
 import { generateUUID } from "~/lib/utils";
 import { prepareInstructions } from "~/constants";
-// import { aw } from "node_modules/react-router/dist/development/route-data-DjzmHYNR.mjs";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -90,8 +89,6 @@ const upload = () => {
 
         console.log('Resume data:', data);
         navigate(`/resume/${generatedId}`);
-
-        console.log('Feedback:', data.feedback);
     }
 
     const handleFileUpload = (event: FormEvent<HTMLFormElement>) => {
