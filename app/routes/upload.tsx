@@ -33,6 +33,7 @@ const upload = () => {
         if(!uploadedFile) {
             // setIsProcessing(false);
             setStatusText("Failed to upload resume. Please try again.");
+            navigate('/upload');
             return;
         }
 
@@ -41,7 +42,7 @@ const upload = () => {
         if(!imageFile.file) {
             // setIsProcessing(false);
             setStatusText("Failed to convert resume to image. Please try again.");
-            console.error("Failed to convert PDF to image:", imageFile.error);
+            navigate('/upload');
             return;
         }
 
@@ -50,6 +51,7 @@ const upload = () => {
         if(!uploadedImage) {
             // setIsProcessing(false);
             setStatusText("Failed to upload resume image. Please try again.");
+            navigate('/upload');
             return;
         }
 
@@ -75,6 +77,7 @@ const upload = () => {
         if(!feedback) {
             // setIsProcessing(false);
             setStatusText("Failed to analyze resume. Please try again.");
+            navigate('/upload');
             return;
         }
 
@@ -86,6 +89,9 @@ const upload = () => {
         setStatusText('Analysis complete! Redirecting you to your resume...');
 
         console.log('Resume data:', data);
+        navigate(`/resume/${generatedId}`);
+
+        console.log('Feedback:', data.feedback);
     }
 
     const handleFileUpload = (event: FormEvent<HTMLFormElement>) => {
