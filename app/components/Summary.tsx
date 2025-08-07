@@ -22,12 +22,12 @@ const Category = ({ title, score }: { title: string; score: number }) => {
 const Summary = ({ feedback } : {feedback :Feedback}) => {
   return (
     <div className="bg-gray-50 shadow-md rounded-xl w-full">
-        <div className="flex flex-row items-center p-4 gap-6">
+        <div className="flex sm:flex-row flex-col items-center p-4 gap-6">
             <ScoreGauge score={feedback.overallScore} />
 
             <div className="flex flex-col gap-2">
-                <h2 className="text-2xl font-semibold">Resume Score</h2>
-                <p className="text-sm text-gray-500">This score is calculated based on the variables listed below</p>
+                <h2 className="font-semibold">Resume Score</h2>
+                <p className="text-sm text-gray-500">This score is calculated based on the variables listed below:</p>
             </div>
         </div>
         
