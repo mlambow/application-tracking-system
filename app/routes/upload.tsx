@@ -6,7 +6,7 @@ import { usePuterStore } from "~/lib/puter";
 import { useNavigate } from "react-router";
 import { convertPdfToImage } from "~/lib/pdf2img";
 import { generateUUID } from "~/lib/utils";
-import { prepareInstructions } from "~/constants";
+import { improvedResume, prepareInstructions } from "~/constants";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -68,9 +68,21 @@ const upload = () => {
 
         setStatusText('Analyzing your resume...');
 
+        const image = await ai.img2txt(
+            uploadedImage.path,
+        )
+
+        console.log('Image analysis result:', image);
+
+        const feedbackResume = await ai.feedbackResume(
+            uploadedImage.path,
+            improvedResume({jobDescription})
+        ) 
+        
         const feedback = await ai.feedback(
             uploadedFile.path,
-            prepareInstructions({jobTitle, jobDescription})
+            prepareInstructions({jobTitle, jobDescription}),
+            
         )
 
         if(!feedback) {
@@ -130,7 +142,7 @@ const upload = () => {
                     )}
             </div>
             {!isProcessing && (
-                <form id="upload-form" onSubmit={handleFileUpload} className="flex flex-col gap-4 mt-6">
+                <form id="upload-form" onSubmit={handleFileUpload} className="flex flex-col gap-4 mt-6 w-full max-w-4xl">
                     <div className="form-div">
                         <label htmlFor="company-name" className="">Company Name</label>
                         <input type="text" id="company-name" name="company-name" placeholder="Company Name" />
@@ -141,7 +153,7 @@ const upload = () => {
                     </div>
                     <div className="form-div">
                         <label htmlFor="job-description" className="">Job Description</label>
-                        <textarea rows={5} id="job-description" name="job-description" placeholder="Job Description" />
+                        <textarea rows={5} id="job-description" name="job-description" placeholder="Paste your job description here...." />
                     </div>
                     <div className="form-div">
                         <label htmlFor="upload" className="">Upload Resume</label>

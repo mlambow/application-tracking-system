@@ -5,6 +5,8 @@ import { usePuterStore } from "~/lib/puter";
 import Summary from "~/components/Summary";
 import ATS from "~/components/ATS";
 import Details from "~/components/Details";
+import SkeletonLoader from "../components/SkeletonLoader";
+import SkeletonImage from "../components/SkeletonImage";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -42,6 +44,8 @@ const resume = () => {
             const resumeUrl = URL.createObjectURL(pdfBlob);
             setResumeUrl(resumeUrl);
 
+            
+
             const imageBlob = await fs.read(data.imagePath);
             if(!imageBlob) return
             const imageUrl = URL.createObjectURL(imageBlob);
@@ -52,16 +56,19 @@ const resume = () => {
         loadResume()
     }, [id]);
   return (
-    <main className="!pt-0">
+    <main className="!pt-0 bg-gray-50 overflow-hidden">
         <nav className="resume-nav">
             <Link to='/' className="back-button">
                 <img src="/icons/back.svg" alt="Back" className="w-3.5 h-3.5" />
-                <span className="text-gray-800 text-sm font-semibold">Back to Homepage</span>
+                <span className="text-gray-800 text-sm font-semibold hidden sm:inline">Back to Homepage</span>
             </Link>
         </nav>
         <div className="flex flex-row w-full max-lg:flex-col-reverse">
-            <section className="feedback-section bg-[url('/images/bg-small.svg)] bg-cover h-[100vh] sticky top-0 items-center justify-center">
-                {imageUrl && resumeUrl && (
+            <section className="feedback-section bg-[url('/images/bg-small.svg)] bg-cover h-fit sticky top-0">
+                <p className="text-xl font-semibold inline-flex lg:hidden">Your Resume</p>
+                {(!imageUrl || !resumeUrl) ? (
+                    <SkeletonImage />
+                ) : (
                     <div className="gradient-border max-sm:m-0 h-[90%] max-w-xl:h-fit w-fit">
                         <a href={resumeUrl} target='_blank' rel='noreferrer'>
                             <img 
@@ -77,7 +84,9 @@ const resume = () => {
                 <h2 className="text-3xl !text-black font-semibold">
                     Resume Review
                 </h2>
-                {feedback ? (
+                {feedback === null ? (
+                    <SkeletonLoader />
+                ) : feedback ? (
                     <div className="flex flex-col gap-6 animate-in fade-in duration-1500">
                         <Summary feedback={feedback} />
                         <ATS score={feedback.ATS.score} suggestions={feedback.ATS.tips}/>
